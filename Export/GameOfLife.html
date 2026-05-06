@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2024b"><title>Untitled</title><style type="text/css">.rtcContent { padding: 30px; } .CodeBlock { background-color: #F5F5F5; margin: 10px 15px 10px 0; display: inline-block }
+.S0 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S1 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S2 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >clear </span><span style="color: #a709f5;">all</span><span >; clc; close </span><span style="color: #a709f5;">all</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >m = 15; </span><span style="color: #008013;">%number of rows of cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >n = 15; </span><span style="color: #008013;">%number of columns of cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >figure </span><span style="color: #008013;">%open figure window</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >drawCells(m,n) </span><span style="color: #008013;">%Draw cells (all dead, i.e., white)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >[R,C] = inputLiveCells(m,n); </span><span style="color: #008013;">%Populate R and C arrays with subscripts of selected live cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #008013;">% and color live cells black in the figure window</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #008013;">% %Evolve pattern indefinitely</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >x = evolveState(R,C,m,n); </span><span style="color: #008013;">%get pattern after the first tick</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >[Rnew, Cnew] = x{:};</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">while </span><span >~isequal([R; C],[Rnew; Cnew]) </span><span style="color: #008013;">%as long as pattern is changing following a tick</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >R = Rnew; C = Cnew; </span><span style="color: #008013;">%pass updated information through</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >x = evolveState(R,C,m,n); </span><span style="color: #008013;">%obtain new pattern after one tick</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >[Rnew, Cnew] = x{:};</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >pause(0.3)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #008013;">% title('Still Life')</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #008013;">%We got a fix the grid lines color are disappearing after each while loop.</span></span></div></div><div class="inlineWrapper"><div  class = 'S2'>&nbsp;</div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+
+clear all; clc; close all
+m = 15; %number of rows of cells
+n = 15; %number of columns of cells
+figure %open figure window
+drawCells(m,n) %Draw cells (all dead, i.e., white)
+[R,C] = inputLiveCells(m,n); %Populate R and C arrays with subscripts of selected live cells
+% and color live cells black in the figure window
+% %Evolve pattern indefinitely
+x = evolveState(R,C,m,n); %get pattern after the first tick
+[Rnew, Cnew] = x{:};
+while ~isequal([R; C],[Rnew; Cnew]) %as long as pattern is changing following a tick
+R = Rnew; C = Cnew; %pass updated information through
+x = evolveState(R,C,m,n); %obtain new pattern after one tick
+[Rnew, Cnew] = x{:};
+pause(0.3)
+end
+% title('Still Life')
+
+%We got a fix the grid lines color are disappearing after each while loop.
+##### SOURCE END #####
+-->
+</div></body></html>

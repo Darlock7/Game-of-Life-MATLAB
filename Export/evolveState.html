@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2024b"><title>Untitled</title><style type="text/css">.rtcContent { padding: 30px; } .CodeBlock { background-color: #F5F5F5; margin: 10px 15px 10px 0; display: inline-block }
+.S0 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S1 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S2 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'><span style="white-space: pre"><span style="color: #0e00ff;">function </span><span >out = evolveState(R,C,m,n)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >x = 1;  </span><span style="color: #008013;">%preallocation</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >y = 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >surviveCell = {[</span><span style="color: #a709f5;">'Na'</span><span >]}; </span><span style="color: #008013;">%using Na as preallocation to avoid 'unrecognized variable' - needs to be a non-number to prevent filling in false cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >makeDeadCell = {[</span><span style="color: #a709f5;">'Na'</span><span >]};   </span><span style="color: #008013;">%must be two letters so that when compared to real [R,C] arrays have compatible sizes for comparison</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">for </span><span >i = 1:length(R)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">if </span><span >survive(R,C, R(i), C(i))</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        surviveCell{x} = [R(i), C(i)];  </span><span style="color: #008013;">%storing all surviving cells in an array to use later</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        x = x + 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">else</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        makeDeadCell{y} = [R(i), C(i)];   </span><span style="color: #008013;">%storing all dying cells in an array to use later</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        y = y + 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >z = 1;   </span><span style="color: #008013;">%preallocation</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >awakenCell = {[</span><span style="color: #a709f5;">'Na'</span><span >]};</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">for </span><span >j = 0:(m-1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">for </span><span >k = 0:(n-1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: #0e00ff;">if </span><span >awakens(R,C,j, k)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >            awakenCell{z} = [j, k];  </span><span style="color: #008013;">%storing awakening cells in an array to use later</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >            z = z + 1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: #0e00ff;">else</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >            </span><span style="color: #0e00ff;">continue</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #008013;">%killing cells using stored dying cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">for </span><span >i = 1:length(makeDeadCell)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">if </span><span >makeDeadCell{1} == </span><span style="color: #a709f5;">'Na'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: #0e00ff;">continue</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">else</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    rectangle(</span><span style="color: #a709f5;">'Position'</span><span >,[makeDeadCell{i}(2), makeDeadCell{i}(1),1,1],</span><span style="color: #a709f5;">'FaceColor'</span><span >,</span><span style="color: #a709f5;">'w'</span><span >,</span><span style="color: #a709f5;">'EdgeColor'</span><span >, [0.5, 0.5, 0.5]);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #008013;">%filling cells using stored awakening cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">for </span><span >j = 1:length(awakenCell)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">if </span><span >awakenCell{1} == </span><span style="color: #a709f5;">'Na'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: #0e00ff;">continue</span><span >;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">else</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        rectangle(</span><span style="color: #a709f5;">'Position'</span><span >,[awakenCell{j}(2), awakenCell{j}(1),1,1],</span><span style="color: #a709f5;">'FaceColor'</span><span >,</span><span style="color: #a709f5;">'k'</span><span >,</span><span style="color: #a709f5;">'EdgeColor'</span><span >, [0.5, 0.5, 0.5]);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >newLiveCells = [surviveCell, awakenCell];   </span><span style="color: #008013;">%creating a cell array containing the new live cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">for </span><span >i = 1:length(newLiveCells)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">if </span><span >newLiveCells{i} == </span><span style="color: #a709f5;">'Na'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        newLiveCells{i} = [0 0];</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >Rnew = zeros(1,length(newLiveCells));     </span><span style="color: #008013;">%preallocation</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >Cnew = zeros(1,length(newLiveCells));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">for </span><span >j = 1:length(newLiveCells)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    Rnew(j) = newLiveCells{j}(1);  </span><span style="color: #008013;">%rows of new live cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    Cnew(j) = newLiveCells{j}(2);  </span><span style="color: #008013;">%columns of new live cells</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >out = {Rnew, Cnew}; </span></span></div></div><div class="inlineWrapper"><div  class = 'S2'><span style="white-space: pre"><span style="color: #0e00ff;">end</span></span></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+function out = evolveState(R,C,m,n)
+
+x = 1;  %preallocation
+y = 1;
+surviveCell = {['Na']}; %using Na as preallocation to avoid 'unrecognized variable' - needs to be a non-number to prevent filling in false cells
+makeDeadCell = {['Na']};   %must be two letters so that when compared to real [R,C] arrays have compatible sizes for comparison
+
+for i = 1:length(R)
+    if survive(R,C, R(i), C(i))
+        surviveCell{x} = [R(i), C(i)];  %storing all surviving cells in an array to use later
+        x = x + 1;
+    else
+        makeDeadCell{y} = [R(i), C(i)];   %storing all dying cells in an array to use later
+        y = y + 1;
+    end
+end
+
+z = 1;   %preallocation
+awakenCell = {['Na']};
+for j = 0:(m-1)
+    for k = 0:(n-1)
+        if awakens(R,C,j, k)
+            awakenCell{z} = [j, k];  %storing awakening cells in an array to use later
+            z = z + 1;
+        else
+            continue;
+        end
+    end
+end
+
+%killing cells using stored dying cells
+for i = 1:length(makeDeadCell)
+    if makeDeadCell{1} == 'Na'
+        continue;
+    else
+    rectangle('Position',[makeDeadCell{i}(2), makeDeadCell{i}(1),1,1],'FaceColor','w','EdgeColor', [0.5, 0.5, 0.5]);
+    end
+end
+
+%filling cells using stored awakening cells
+for j = 1:length(awakenCell)
+    if awakenCell{1} == 'Na'
+        continue;
+    else
+        rectangle('Position',[awakenCell{j}(2), awakenCell{j}(1),1,1],'FaceColor','k','EdgeColor', [0.5, 0.5, 0.5]);
+    end
+end
+
+
+newLiveCells = [surviveCell, awakenCell];   %creating a cell array containing the new live cells
+for i = 1:length(newLiveCells)
+    if newLiveCells{i} == 'Na'
+        newLiveCells{i} = [0 0];
+    end
+end
+Rnew = zeros(1,length(newLiveCells));     %preallocation
+Cnew = zeros(1,length(newLiveCells));
+for j = 1:length(newLiveCells)
+    Rnew(j) = newLiveCells{j}(1);  %rows of new live cells
+    Cnew(j) = newLiveCells{j}(2);  %columns of new live cells
+end
+out = {Rnew, Cnew}; 
+end
+##### SOURCE END #####
+-->
+</div></body></html>

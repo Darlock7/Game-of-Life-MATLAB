@@ -1,0 +1,15 @@
+# MATLAB autosave / temp
+*.asv
+*.m~
+*.autosave
+*.mlx.autosave
+
+# MATLAB compiled
+*.mex*
+*.p
+
+# MATLAB Drive internal tag
+.MATLABDriveTag
+
+# macOS
+.DS_Store
