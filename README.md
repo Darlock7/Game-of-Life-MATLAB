@@ -2,6 +2,8 @@
 
 An interactive implementation of Conway's Game of Life built entirely in MATLAB Live Scripts.
 
+![Game of Life — Gosper Glider Gun](game_of_life_demo.gif)
+
 ## How it works
 
 The simulation runs on a 15×15 grid. The user clicks cells to seed the initial live population, then the program evolves the pattern one tick at a time until it reaches a still life (no further change).
